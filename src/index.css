@@ -1,0 +1,66 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.appName {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.wrapper {
+  padding: 1rem 1rem 2rem;
+  margin: 2rem ;
+  border: 1px solid rgba(187, 187, 187, 0.086);
+  border-radius: 10px;
+  box-shadow: 1px 1px 20px 1px rgba(0, 0, 0, 0.438);
+}
+
+.questionNo {
+  padding: 2.5rem 0 0rem;
+}
+
+.question {
+  padding: 1rem 0;
+  font-size: 1.5rem;
+}
+
+.individualQuestion {
+  padding-bottom: 3rem;
+  border-bottom: 1px solid black;
+}
+
+
+label {
+  padding-left: 5px;
+}
+
+.option {
+  font-size: 1.2rem;
+  padding: 10px 15px;
+}
+
+button {
+  margin: 1.5rem 0 0;
+  padding: 7px 12px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: rgb(89, 89, 89);
+  border: 1px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all .1s ease-out;
+
+}
+
+button:active {
+  background: rgb(155, 155, 155);
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
