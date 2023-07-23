@@ -37,47 +37,58 @@ const QuizComponent = ({ questionBank }) => {
 
         <div>
 
-            <h1 className='appName'>QUIZ APP</h1>
-            <form action="" className='wrapper' disabled onSubmit={handleSubmit}>
-                {questionBank.map(({ question, options }, questionIndex) => (
-                    <div key={questionIndex} className='individualQuestion'>
-                        <h3 className='questionNo'>Question {questionIndex + 1}</h3>
-                        <p className='question'>{question}</p>
+            {questionBank.length == 0 ? (
+                <>
+                    <h1 className='appName'>QUIZ APP</h1>
+                    <form action="" className='wrapper' disabled onSubmit={handleSubmit}>
+                        <h3><i>You have no questions, set questions on the Add question section of the page</i></h3>
+                    </form>
+                </>
+            ) : (
+                <>
+                    <h1 className='appName'>QUIZ APP</h1>
+                    <form action="" className='wrapper' disabled onSubmit={handleSubmit}>
+                        {questionBank.map(({ question, options }, questionIndex) => (
+                            <div key={questionIndex} className='individualQuestion'>
+                                <h3 className='questionNo'>Question {questionIndex + 1}</h3>
+                                <p className='question'>{question}</p>
 
-                        {options.map((option, optionIndex) => (
-                            <div className='option' key={optionIndex}>
-                                <input
-                                    type="radio"
-                                    name={`ans${questionIndex}`}
-                                    id={`input${questionIndex}${optionIndex}`}
-                                    value={option}
-                                    checked={selectedOptionsArray[questionIndex] == option}
-                                    onChange={() => selectOption(option, questionIndex)}
+                                {options.map((option, optionIndex) => (
+                                    <div className='option' key={optionIndex}>
+                                        <input
+                                            type="radio"
+                                            name={`ans${questionIndex}`}
+                                            id={`input${questionIndex}${optionIndex}`}
+                                            value={option}
+                                            checked={selectedOptionsArray[questionIndex] == option}
+                                            onChange={() => selectOption(option, questionIndex)}
 
-                                />
-                                <label htmlFor={`input${questionIndex}${optionIndex}`}>{String.fromCharCode(65 + optionIndex)}. {option}</label>
+                                        />
+                                        <label htmlFor={`input${questionIndex}${optionIndex}`}>{String.fromCharCode(65 + optionIndex)}. {option}</label>
+                                    </div>
+                                ))}
+
                             </div>
                         ))}
-
-                    </div>
-                ))}
-                <div className='button'>
-                    <button type={`submit`} disabled={submitted ? true : false}>{submitted ? <p>Submitted</p> : <p>Submit</p>}</button>
-                </div>
-                <br />
-                <center>
-                    {submitted &&
-                        <div>
-                            <h2>Quiz Complete!</h2>
-                            <br />
-                            <p>Your score: <b><em>{score}</em></b> out of <b><em>{questionBank.length}</em></b></p>
-                            <br />
-                            <h4><em>Choose an option to begin test</em></h4>
+                        <div className='button'>
+                            <button type={`submit`} disabled={submitted ? true : false}>{submitted ? <p>Submitted</p> : <p>Submit</p>}</button>
                         </div>
-                    }
-                </center>
+                        <br />
+                        <center>
+                            {submitted &&
+                                <div>
+                                    <h2>Quiz Complete!</h2>
+                                    <br />
+                                    <p>Your score: <b><em>{score}</em></b> out of <b><em>{questionBank.length}</em></b></p>
+                                    <br />
+                                    <h4><em>Choose an option to begin test</em></h4>
+                                </div>
+                            }
+                        </center>
 
-            </form>
+                    </form>
+                </>
+            )}
 
         </div >
     );

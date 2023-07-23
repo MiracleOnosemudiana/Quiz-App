@@ -12,7 +12,7 @@
 
 .wrapper {
   padding: 1rem 1rem 2rem;
-  margin: 2rem ;
+  margin: 2rem;
   border: 1px solid rgba(187, 187, 187, 0.086);
   border-radius: 10px;
   box-shadow: 1px 1px 20px 1px rgba(0, 0, 0, 0.438);
@@ -63,4 +63,37 @@ button:active {
   display: flex;
   justify-content: center;
   gap: 1rem;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* editable style */
+.flexer {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.input {
+  width: 100%;
+  padding-left: 2px;
+  outline: none;
+  margin-top: 5px;
+  font-size: 18px;
+}
+
+.flex div input {
+  height: 2rem;
+}
+
+.dispal {
+  display: flex;
+  justify-content: space-between;
 }
