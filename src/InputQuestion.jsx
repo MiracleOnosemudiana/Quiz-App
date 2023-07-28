@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useQuestionBank } from './context/questionContext';
 
-const InputQuestion = ({ onAddQuestion }) => {
-    const [question, setquestion] = useState('');
+const InputQuestion = () => {
+    const { questionBank, setQuestionBank } = useQuestionBank();
+    const [question, setQuestion] = useState('')
     const [correctAnswer, setcorrectAnswer] = useState('');
     const [options, setoptions] = useState(['', '', '', ''])
 
+    //to get the question
     const handleQuestion = (e) => {
         const { value } = e.target
-        setquestion(value)
+        setQuestion(value)
     }
 
+    //to get the different options
     const handleOption = (e, index) => {
         const { value } = e.target
         const optionsArray = [...options]
@@ -17,6 +21,7 @@ const InputQuestion = ({ onAddQuestion }) => {
         setoptions(optionsArray)
     }
 
+    //to get the correct option 
     const handleCorrectAnswer = (e) => {
         const { value } = e.target
         setcorrectAnswer(value)
@@ -32,19 +37,34 @@ const InputQuestion = ({ onAddQuestion }) => {
         }, [])
     }
 
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (question.trim() === '' || correctAnswer.trim() === '' || options.some((option) => option.trim() === '')) {
+        if (
+            question.trim() === '' ||
+            correctAnswer.trim() === '' ||
+            options.some((option) => option.trim() === '')) {
             alert('please fill in the fields')
         } else {
-            onAddQuestion(questionObject)
+            let localQuestion;
+            localQuestion = localStorage.getItem('QuestionBank')
+
+            if (!localStorage) {
+                localQuestion = localStorage.setItem('QuestionBank', JSON.stringify([questionObject]))
+            } else {
+                localQuestion = localStorage.getItem('QuestionBank')
+                localQuestion = JSON.parse(localQuestion)
+                localQuestion = [...localQuestion, questionObject]
+                localQuestion = JSON.stringify(localQuestion)
+                localStorage.setItem('QuestionBank', localQuestion)
+                setQuestionBank(JSON.parse(localQuestion))
+            }
+
+            setQuestion('')
+            setcorrectAnswer('')
+            setoptions(['', '', '', ''])
         }
-
-        setquestion('')
-        setcorrectAnswer('')
-        setoptions(['', '', '', ''])
-
     }
 
     return (
@@ -62,7 +82,9 @@ const InputQuestion = ({ onAddQuestion }) => {
                 <div className='flex'>
                     <div>
                         <label htmlFor="" className=''><b>Question:</b></label>
-                        <textarea name="" id="" rows="5" value={question} onChange={handleQuestion} className='input' placeholder='Enter Question'></textarea>
+                        <textarea name="" id="" rows="5"
+                            value={question}
+                            onChange={handleQuestion} className='input textarea' placeholder='Enter Question'></textarea>
                     </div>
 
                     {options.map((option, index) => (

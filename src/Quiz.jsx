@@ -1,11 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useQuestionBank } from './context/questionContext';
+import { Link } from 'react-router-dom';
+import { useToggle } from './context/toggleContext';
 
-const QuizComponent = ({ questionBank }) => {
+const QuizComponent = () => {
+    const { questionBank, setQuestionBank } = useQuestionBank();
     const [selectedOption, setSelectedOption] = useState('')
     const [selectedOptionsArray, setSelectedOptionsArray] = useState([])
     const [score, setScore] = useState(0);
     const [submitted, setSubmitted] = useState(false);
+    const { navToggle, setNavToggle } = useToggle()
 
+    
+
+    const closeNav = () => {
+        setNavToggle(false)
+    }
 
     const selectOption = (option, questionIndex) => {
         setSelectedOption(option)
@@ -40,14 +50,22 @@ const QuizComponent = ({ questionBank }) => {
             {questionBank.length == 0 ? (
                 <>
                     <h1 className='appName'>QUIZ APP</h1>
-                    <form action="" className='wrapper' disabled onSubmit={handleSubmit}>
-                        <h3><i>You have no questions, set questions on the Add question section of the page</i></h3>
+                    <form action="" className='wrapper' onSubmit={handleSubmit}>
+                        <center>
+                            <i>
+                                <h3>You have no question set on your app</h3>
+                                <p>Click on the button below to add questions</p>
+                                <Link to='/add-questions' onClick={closeNav}>
+                                    <button type='button'>Go to Add Questions page</button>
+                                </Link>
+                            </i>
+                        </center>
                     </form>
                 </>
             ) : (
                 <>
                     <h1 className='appName'>QUIZ APP</h1>
-                    <form action="" className='wrapper' disabled onSubmit={handleSubmit}>
+                    <form action="" className='wrapper' onSubmit={handleSubmit}>
                         {questionBank.map(({ question, options }, questionIndex) => (
                             <div key={questionIndex} className='individualQuestion'>
                                 <h3 className='questionNo'>Question {questionIndex + 1}</h3>
